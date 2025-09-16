@@ -29,26 +29,41 @@ document.querySelector('.header').appendChild(mobileMenuBtn);
 document.body.appendChild(mobileMenu);
 
 // Mobile Menu Toggle
+// Mobile Menu Toggle
 mobileMenuBtn.addEventListener('click', () => {
+    if (!mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        mobileMenu.classList.add('closing');
+        setTimeout(() => {
+            mobileMenu.classList.remove('active', 'closing');
+            document.body.style.overflow = '';
+        }, 300);
+    }
     mobileMenuBtn.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
 });
 
 document.querySelector('.mobile-menu-close').addEventListener('click', () => {
+    mobileMenu.classList.add('closing');
+    setTimeout(() => {
+        mobileMenu.classList.remove('active', 'closing');
+        document.body.style.overflow = '';
+    }, 300);
     mobileMenuBtn.classList.remove('active');
-    mobileMenu.classList.remove('active');
-    document.body.style.overflow = '';
 });
 
 // Закрытие меню при клике на пункт
 document.querySelectorAll('.mobile-menu__item').forEach(item => {
     item.addEventListener('click', () => {
+        mobileMenu.classList.add('closing');
+        setTimeout(() => {
+            mobileMenu.classList.remove('active', 'closing');
+            document.body.style.overflow = '';
+        }, 300);
         mobileMenuBtn.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
     });
-});
+})
 // Slider functionality
 let sliderInitialized = false;
 
